@@ -12,7 +12,7 @@
 
     <testsuites>
         <testsuite name="TestSuite">
-            <directory>src/DemoTest</directory>
+            <directory>src/TicTacToe</directory>
         </testsuite>
     </testsuites>
 
@@ -20,7 +20,7 @@
         <whitelist>
             <directory>src</directory>
             <exclude>
-                <directory>src/DemoTest</directory>
+                <directory>src/TicTacToeTest</directory>
             </exclude>
         </whitelist>
     </filter>
