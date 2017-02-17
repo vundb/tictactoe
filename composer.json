@@ -6,7 +6,9 @@
   "autoload": {
     "psr-4": {
       "Demo\\": "src/Demo/",
-      "DemoTest\\": "src/DemoTest/"
+      "DemoTest\\": "src/DemoTest/",
+      "Game\\": "src/Game/",
+      "GameTest\\": "src/GameTest/"
     }
   },
   "require": {
