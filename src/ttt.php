@@ -12,12 +12,16 @@ while ($restart) {
     $col = null;
     $currentPlayer = $board->getCurrentPlayer() === -1 ? 1 : 2;
 
-    while ($row === null || $col === null || !$board->isMovePossible($row, $col)) {
-        $row = readline("Player ".$currentPlayer.", select the row: ");
-        $col = readline("Player ".$currentPlayer.", select the col: ");
-    }
+    if ($currentPlayer === 1) {
+        while ($row === null || $col === null || !$board->isMovePossible($row, $col)) {
+            $row = readline("Player " . $currentPlayer . ", select the row: ");
+            $col = readline("Player " . $currentPlayer . ", select the col: ");
+        }
 
-    $board->makePlayerMove($row, $col);
+        $board->makePlayerMove($row, $col);
+    } else {
+        $board->makeAiMove();
+    }
 
     echo "\n\n";
 

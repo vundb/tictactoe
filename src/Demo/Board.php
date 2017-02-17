@@ -104,6 +104,48 @@ class Board
         return true;
     }
 
+    public function makeAiMove() {
+        if ($this->oneLeftToWin(1)) {
+            return;
+        }
+
+        if ($this->oneLeftToWin(-1)) {
+            return;
+        }
+
+        $this->randomMove(1);
+    }
+
+    private function oneLeftToWin($player) {
+        for ($row = 0; $row < $this->fieldSize; $row++) {
+            for ($col = 0; $col < $this->fieldSize; $col++) {
+                if ($this->isMovePossible($row, $col)) {
+                    $this->setFieldValue($row, $col, $player);
+
+                    if ($this->hasPlayerWon($player)) {
+                        $this->setFieldValue($row, $col, null);
+                        $this->makePlayerMove($row, $col);
+                        return true;
+                    }
+
+                    $this->setFieldValue($row, $col, null);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function randomMove() {
+        for ($row = 0; $row < $this->fieldSize; $row++) {
+            for ($col = 0; $col < $this->fieldSize; $col++) {
+                if ($this->isMovePossible($row, $col)) {
+                    return $this->makePlayerMove($row, $col);
+                }
+            }
+        }
+    }
+
     /**
      * @return int
      */
