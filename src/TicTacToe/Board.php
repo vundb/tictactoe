@@ -82,4 +82,18 @@ class Board
         return $this->boardStack[$x][$y];
     }
 
+    public function resetBoard()
+    {
+        $this->boardStack = [];
+        $this->state = self::STATE_NOT_READY;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBoard(): array
+    {
+        return $this->boardStack;
+    }
+
 }
