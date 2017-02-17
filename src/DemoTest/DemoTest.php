@@ -17,6 +17,7 @@ class DemoTest extends TestCase
     public function testReturnTest()
     {
         $demo = new Demo();
+        $demo->generateGame();
         $return = $demo->demoMethod();
 
         $this->assertSame("Return Value", $return);
