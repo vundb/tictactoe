@@ -5,6 +5,8 @@
   "description": "",
   "autoload": {
     "psr-4": {
+      "Demo\\": "src/Demo/",
+      "DemoTest\\": "src/DemoTest/"
     }
   },
   "require": {
