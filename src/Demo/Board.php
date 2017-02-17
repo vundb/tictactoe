@@ -1,6 +1,4 @@
 <?php
-namespace Demo;
-
 /**
  * Class Board
  * @package Demo
@@ -12,7 +10,7 @@ class Board
 
     private $currentPlayer;
 
-    function __construct($fieldSize = 3, $currentPlayer = 0)
+    function __construct($fieldSize = 3, $currentPlayer = -1)
     {
         $this->fieldSize = $fieldSize;
         $this->currentPlayer = $currentPlayer;
@@ -39,7 +37,7 @@ class Board
     }
 
     public function hasPlayerWon($player) {
-        $winningScore = $player * 3;
+        $winningScore = $player * $this->fieldSize;
 
         $diagonalSum1 = 0;
         $diagonalSum2 = 0;
@@ -68,14 +66,44 @@ class Board
         return $this->grid[$row][$col] === null;
     }
 
+    public function hasMovesLeft() {
+        for ($row = 0; $row < $this->fieldSize; $row++) {
+            for ($col = 0; $col < $this->fieldSize; $col++) {
+                if ($this->getFieldValue($row, $col) === null) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public function makePlayerMove($row, $col) {
         if (!$this->isMovePossible($row, $col)) {
             return;
         }
 
         $this->setFieldValue($row, $col, $this->currentPlayer);
-        $this->currentPlayer = $this->currentPlayer === 0 ? 1 : 0;
+        $this->currentPlayer = $this->currentPlayer * -1;
     }
+
+    public function printBoard() {
+        for ($row = 0; $row < $this->fieldSize; $row++) {
+            $line = "";
+
+            for ($col = 0; $col < $this->fieldSize; $col++) {
+                $value = $this->getFieldValue($row, $col);
+                $line .= ($value === null ? "-" : ($value === -1 ? 'X' : 'O'))." ";
+            }
+
+            echo $line."\n";
+        }
+
+        echo "\n\n";
+
+        return true;
+    }
+
     /**
      * @return int
      */
@@ -90,5 +118,13 @@ class Board
     public function getGrid()
     {
         return $this->grid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrentPlayer()
+    {
+        return $this->currentPlayer;
     }
 }

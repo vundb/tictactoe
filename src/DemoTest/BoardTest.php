@@ -5,11 +5,9 @@
  * Date: 17.02.17
  * Time: 15:17
  */
+require __DIR__.'/../Demo/Board.php';
 
-namespace DemoTest;
 
-
-use Demo\Board;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -98,10 +96,27 @@ class BoardTest extends TestCase
         $this->board->initializeGrid();
 
         $this->board->makePlayerMove(0, 1);
-        $this->assertSame(0, $this->board->getFieldValue(0, 1));
+        $this->assertSame(-1, $this->board->getFieldValue(0, 1));
 
         $this->board->makePlayerMove(1, 1);
         $this->assertSame(1, $this->board->getFieldValue(1, 1));
+    }
+
+    public function testHasMovesLeft() {
+        $this->board->initializeGrid();
+        $this->assertTrue($this->board->hasMovesLeft());
+
+        $this->board->setFieldValue(0, 0, 0);
+        $this->board->setFieldValue(0, 1, 0);
+        $this->board->setFieldValue(0, 2, 0);
+        $this->board->setFieldValue(1, 0, 0);
+        $this->board->setFieldValue(1, 1, 0);
+        $this->board->setFieldValue(1, 2, 0);
+        $this->board->setFieldValue(2, 0, 0);
+        $this->board->setFieldValue(2, 1, 0);
+        $this->board->setFieldValue(2, 2, 0);
+
+        $this->assertFalse($this->board->hasMovesLeft());
     }
 
     public function testIsMovePossible() {
@@ -110,5 +125,9 @@ class BoardTest extends TestCase
         $this->board->setFieldValue(0, 0, 1);
         $this->assertFalse($this->board->isMovePossible(0, 0));
         $this->assertTrue($this->board->isMovePossible(0, 1));
+    }
+
+    public function testPrintBoard() {
+        $this->assertTrue($this->board->printBoard());
     }
 }
